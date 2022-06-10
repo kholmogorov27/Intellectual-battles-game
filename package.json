@@ -1,0 +1,34 @@
+{
+  "name": "cw-zahvatchiki",
+  "version": "1.0.0",
+  "description": "Игра «Захватчики»",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack serve --open --config webpack.config.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kholmogorov27/cw-zahvatchiki.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kholmogorov27/cw-zahvatchiki/issues"
+  },
+  "homepage": "https://github.com/kholmogorov27/cw-zahvatchiki#readme",
+  "devDependencies": {
+    "@shopify/draggable": "^1.0.0-beta.8",
+    "html-loader": "^3.1.0",
+    "html-webpack-plugin": "^5.5.0",
+    "sweetalert2": "^11.4.14",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0"
+  },
+  "dependencies": {
+    "gh-pages": "^4.0.0"
+  }
+}

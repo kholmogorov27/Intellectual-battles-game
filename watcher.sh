@@ -1,0 +1,1 @@
+while inotifywait -e close_write ./main.js; do browserify index.js -o ./bundles/index.js; done

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Захватчики</title>
+  <style>
+    #history {
+      text-align: center;
+      margin-bottom: 10px;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow-x: auto;
+    }
+    #history > .state {
+      width: 30px;
+      height: 30px;
+      background: #aaa;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin: 5px;
+      cursor: pointer;
+    }
+    #history > .state.head {
+      background: #555;
+    }
+    #historyButtons {
+      display: none;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    #historyButtons > div {
+      width: 40px;
+      display: inline-block;
+      border: 1px solid black;
+      border-radius: 10px;
+      text-align: center;
+      padding: 6px;
+      cursor: pointer;
+      user-select: none;
+    }
+    #main {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-direction: row;
+    }
+    #field {
+      width: 70vw;
+      height: 70vh;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      grid-template-rows: repeat(10, 1fr);
+      user-select: none;
+      margin-right: 10px;
+    }
+    .cell{
+      min-width: 3ch;
+      min-height: 3ch;
+      padding: 10px;
+      position: relative;
+      border: 1px solid black;  
+      font-size: 30px;
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    .cell.non-playable {
+      font-size: 25px;
+      cursor: default;
+    }
+    #score {
+      border-collapse: collapse;
+    }
+    #score td {
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 30px;
+    }
+    #score td:nth-child(2) {
+      width: 3ch;
+    }
+    .hatching:not(.base) {
+      background: linear-gradient(45deg, rgba(0, 0, 0, 0) 49.9%, var(--hatching-color) 49.9%, var(--hatching-color) 60%, rgba(0, 0, 0, 0) 60%) fixed,
+                  linear-gradient(45deg, var(--hatching-color) 10%, rgba(0, 0, 0, 0) 10%) fixed !important;
+      background-size: 10px 10px !important;
+    }
+    .repainted:not(.hatching) {
+      background: var(--repainted) !important;
+    }
+    .repainted.hatching::after {
+      content: "";
+      margin: 10px;
+      height: -webkit-fill-available;
+      width: -webkit-fill-available;
+      position: absolute;
+      background: var(--repainted) !important;
+      z-index: -1;
+    }
+
+
+    .swal2-range{
+      flex-direction: column-reverse;
+      align-items: center;
+    }
+
+
+    /*
+    basePicker
+    */
+    #grid {
+      display: grid;
+      position: relative;
+      justify-items: center;
+    }
+    .overlay {
+      display: flex;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: rgba(0,0,0,0.2);
+      align-items: center;
+      justify-content: center;
+    }
+    #editOverlay > .button {
+      display: inline-block;
+      border: 0;
+      border-radius: 0.25em;
+      background: initial;
+      background-color: #7066e0;
+      color: #fff;
+      font-size: 1em;
+      padding: 0.625em 1.1em;
+      cursor: pointer;
+    }
+    #editOverlay > .button:hover {
+      background-color: #655cc9;
+    }
+    .item { 
+      height: 40px; 
+      width: 40px; 
+      background: lightgreen;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .dropzone { 
+      position: relative;
+      background: #CCC; 
+      height: 40px; 
+      width: 40px; 
+      margin: 3px;
+    }
+    .dropzone.draggable-dropzone--occupied > .cell-info {
+      display: none;
+    }
+    .cell-info {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+    .template-input {
+      width: 100%;
+      border: none;
+      background: none;
+      height: 100%;
+      padding: 0;
+      text-align: center;
+    }
+    /* Chrome, Safari, Edge, Opera */
+    .template-input::-webkit-outer-spin-button,
+    .template-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    /* Firefox */
+    .template-input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    #timer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 2em;
+      font-family: arial;
+    }
+  </style>
+</head>
+<body>
+  <div id="history"></div>
+  <div id="historyButtons">
+    <div class="prev">&#8592;</div>
+    <div class="next">&#8594;</div>
+  </div>
+  <div id="main">
+    <div id="field"></div>
+    <div id="scoreboard"></div>
+  </div>
+  <div id="timer"></div>
+</body>
+</html>
