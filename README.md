@@ -1,2 +1,1 @@
-# cw-zahvatchiki
-Игра "Захватчики"
+# Intellectual battles
